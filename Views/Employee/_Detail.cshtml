@@ -1,0 +1,38 @@
+﻿@using MVC_03_公司練習.Models;
+
+@model List<EmployeeModel>
+
+@{
+    ViewBag.Title = "_Detail";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table  table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">員工編號</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">職稱</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">分數</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">@item.EmpNo</td>
+                            <td>@item.Name</td>
+                            <td>@item.Title</td>
+                            <td>@item.Email</td>
+                            <td>@item.Score</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

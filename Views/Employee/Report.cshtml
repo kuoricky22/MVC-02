@@ -1,0 +1,106 @@
+﻿@using MVC_03_公司練習.Models
+
+@model  List<EmployeeModel>
+
+@{
+    ViewBag.Title = "Report";
+}
+
+<div class="container">
+
+    <div class="row">
+        @* 部門報表 *@
+        <div class="col-md-6">
+            <div class="text-primary" style="font-size: 22px">
+                部門報表
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">項目</th>
+                        <th scope="col">數目</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        @* 更號的寫法 *@
+                        foreach (var dept in Model.Select(x => x.Dept).Distinct())
+                        {
+                            <tr>
+                                <th scope="row">部門總人數</th>
+                                <td>@Model.Where(x => x.Dept == dept).ToList().Count</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">部門分數平均</th>
+                                <td>@Model.Where(x => x.Dept == dept).ToList().Average(x => int.Parse(x.Score))</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @* 單位報表 *@
+        <div class="col-md-6">
+            <div class="text-primary" style="font-size: 22px">
+                單位報表
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">單位</th>
+                        <th scope="col">單位人數</th>
+                        <th scope="col">單位分數平均</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var unit in Model.Select(x => x.Unit).Distinct())
+                        {
+                            <tr>
+                                <th scope="row">@unit</th>
+                                @* 更號的寫法 *@
+                                <td class="text-center">@Model.Where(x => x.Unit == unit).ToList().Count</td>
+                                <td class="text-center">@Model.Where(x => x.Unit == unit).ToList().Average(x => int.Parse(x.Score))</td>
+                            </tr>
+                        }
+
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+        @* 職稱報表 *@
+        <div class="col-md-12" style="border-top:5px solid #808080; margin-top: 10px; padding-top:10px">
+            <div class="text-primary" style="font-size: 22px">
+                職稱報表
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">職稱</th>
+                        <th scope="col">職稱人數</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var title in Model.Select(x => x.Title).Distinct())
+                        {
+                            <tr>
+                                <th scope="row">@title</th>
+                                @* 更號的寫法 *@
+                                <td>@Model.Where(x => x.Title == title).ToList().Count</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+

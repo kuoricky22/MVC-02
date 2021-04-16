@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataBaseSet  xmlns:bk="urn:samples">
+  <DataBase Type="dBaseFile" Value="11">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=&lt;File&gt;;Extended Properties=dBASE IV;User ID=&lt;UserID&gt;;Password=&lt;Psw&gt;</DataBase>
+  <DataBase Type="AccessFile" Value="12">Provider=Microsoft.Jet.OLEDB.4.0;Password=&lt;Psw&gt;;User ID=&lt;UserID&gt;;Data Source=&lt;File&gt;</DataBase>
+  <DataBase Type="ExcelFile" Value="13">Provider=Microsoft.Jet.OLEDB.4.0;Data Source=&lt;File&gt;;Extended Properties=Excel 8.0;User ID=&lt;UserID&gt;;Password=&lt;Psw&gt;</DataBase>
+  
+  <DataBase Type="WebConfig.AppSettings" Value="14">WebConfigApp:name</DataBase>
+  <DataBase Type="WebConfig.ConnectionStrings" Value="15">WebConfigConnect:name</DataBase>
+	<DataBase Type="CompanyDB" Value="10">WebConfigConnect:CompanyDB</DataBase>
+</DataBaseSet>

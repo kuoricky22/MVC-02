@@ -1,0 +1,119 @@
+﻿@using MVC_03_公司練習.Models
+
+@model  List<EmployeeModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+    @*用 foreach 取得資料 *@
+    <div class="col-md-6">
+        foreach sample:
+        <table border="1">
+            <tr>
+                <th>員工編號</th>
+                <th>姓名</th>
+            </tr>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.EmpNo</td>
+                        <td> @item.Name</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    @*用 for迴圈 取得資料 *@
+    <div class="col-md-6">
+        for迴圈 sample:
+        <table border="1">
+            <tr>
+                <th>員工編號</th>
+                <th>姓名</th>
+            </tr>
+            @if (Model != null)
+            {
+                for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@Model[i].EmpNo</td>
+                        <td> @Model[i].Name</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+
+ 選取第一筆資料:
+<table border="1">
+    <tr>
+        <th>員工編號</th>
+        <th>姓名</th>
+    </tr>
+    @{
+        EmployeeModel firstEmployee = Model.FirstOrDefault();
+    }
+
+    @if (Model != null)
+    {
+        <tr>
+            <td>@firstEmployee.EmpNo</td>
+            <td> @firstEmployee.Name</td>
+        </tr>
+    }
+</table>
+
+資訊中心員工數： @Model.Count
+<br />
+資訊中心員工分數總和： @Model.Sum(x => int.Parse(x.Score));
+&nbsp;
+<br />
+
+條件查詢(多筆)
+@{
+    List<EmployeeModel> filterEmployee = Model.Where(x => x.EmpNo == "EN3684").ToList();
+}
+<table border="1">
+    <tr>
+        <th>姓名</th>
+        <th>員工編號</th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var item in filterEmployee)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td> @item.EmpNo</td>
+            </tr>
+        }
+
+    }
+</table>
+
+
+條件查詢(單筆)
+@{
+    EmployeeModel filterEmployee_1 = Model.Where(x => x.EmpNo == "EN3684").FirstOrDefault();
+}
+<table border="1">
+    <tr>
+        <th>姓名</th>
+        <th>員工編號</th>
+    </tr>
+
+    @if (Model != null)
+    {
+        <tr>
+            <td>@filterEmployee_1.Name</td>
+            <td> @filterEmployee_1.EmpNo</td>
+        </tr>
+    }
+</table>

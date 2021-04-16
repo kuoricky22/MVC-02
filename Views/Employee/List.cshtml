@@ -1,0 +1,111 @@
+﻿@using MVC_03_公司練習.Models
+
+@model  List<EmployeeModel>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">員工編號</th>
+                    <th class="text-center" scope="col">姓名</th>
+                    <th class="text-center" scope="col">細項(切換頁面)</th>
+                    <th class="text-center" scope="col">細項(部分顯示 方式:Get)</th>
+                    <th class="text-center" scope="col">細項(部分顯示 方式:Post)</th>
+                    <th class="text-center" scope="col">細項(部分顯示 TYPE:Json)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    // 取得多筆資料
+                    foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <th class="text-center" scope="row">@item.EmpNo</th>
+                            <td>@item.Name</td>
+                            <td><a href="Detail/@item.EmpNo">連結</a></td>
+                            <td><button onclick="getEmployee('@item.EmpNo', '@item.Title')">細項</button></td>
+                            <td><button onclick="GetList('@item.UnitNo', '@item.Title')">細項</button></td>
+                            <td><button onclick="GetEmployeeJson('@item.EmpNo')">API</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6" style="margin: 20px 0;">
+        <div class="text-primary" style="font-size: 22px">
+            細項(部分顯示 方式:Get)
+        </div>
+        <div class="" id="employee" style="width:100%; height: auto; border: 2px solid #aaa; padding: 32.5px 10px;">
+
+        </div>
+    </div>
+
+    <div class="col-md-6" style="margin: 20px 0;">
+        <div class="text-primary" style="font-size: 22px">
+            部分顯示 方式:Post 
+        </div>
+        <div class="" id="list" style="width:100%; height: auto; border: 2px solid #aaa; padding: 32.5px 10px;">
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="margin: 20px 0;">
+    <div class="text-primary" style="font-size: 22px">
+        部分顯示 TYPE:Json
+    </div>
+    <div class="" id="Employeediv" style="width:100%; height: auto; border: 2px solid #aaa; padding: 32.5px 10px;">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="width: 100%;">
+                    <th scope="row">員工代號</th>
+                    <td scope="col" id="empNo"></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="width: 100%;">
+                    <th scope="row">姓名</th>
+                    <td scope="col" id="empName"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function getEmployee(empNo, title) {
+        $('#employee').empty();
+        $.get('/Employee/_Detail/?EmpNo=' + empNo + "&title=" + title, function (result) {
+            $('#employee').html(result);
+        })
+    }
+
+    function GetList(unitNo, title) {
+        $('#empNo').empty();
+        $('#empName').empty();
+
+        $.post('/Employee/_List', { unitNo: unitNo, title: title }, function (result) {
+            $('#empNo').html(result.EmpNo);
+            $('#empName').html(result.Name);
+            $('#list').html(result);
+        })
+    }
+
+    function GetEmployeeJson(_empNo) {
+        $('#empNo').empty();
+        $('#empName').empty();
+
+        $.post('/Employee/_EmpJson', { EmpNo: _empNo }, function (result) {
+            $('#empNo').html(result.EmpNo);
+            $('#empName').html(result.Name);
+        })
+    }
+</script>
